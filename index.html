@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chirag Bhagora — Cybersecurity Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e14;
+    --panel: #10161f;
+    --panel-2: #141b26;
+    --line: #22303f;
+    --green: #39ff9c;
+    --green-dim: #1f8f5a;
+    --amber: #ffb454;
+    --text: #dbe4ee;
+    --text-dim: #7c8ba1;
+    --red: #ff5c6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: -1px -1px;
+    background-attachment: fixed;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:var(--green); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  ::selection{ background:var(--green); color:#031007; }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:2px;
+  }
+
+  .wrap{ max-width:960px; margin:0 auto; padding:0 24px; }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(8px);
+    background:rgba(10,14,20,0.85);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:56px; }
+  .brand{ font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--text); font-size:14px; }
+  .brand span{ color:var(--green); }
+  .navlinks{ display:flex; gap:22px; font-family:'JetBrains Mono',monospace; font-size:13px; }
+  .navlinks a{ color:var(--text-dim); }
+  .navlinks a:hover{ color:var(--green); text-decoration:none; }
+
+  /* HERO / TERMINAL */
+  header.hero{ padding:70px 0 40px; }
+  .term{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.45);
+    overflow:hidden;
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.r{ background:#ff5f56; } .dot.y{ background:#ffbd2e; } .dot.g{ background:#27c93f; }
+  .term-title{ margin-left:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); }
+  .term-body{ padding:24px 24px 30px; font-family:'JetBrains Mono',monospace; font-size:14px; min-height:210px; }
+  .term-body .line{ white-space:pre-wrap; }
+  .prompt{ color:var(--green); }
+  .path{ color:var(--amber); }
+  .cursor{
+    display:inline-block; width:8px; height:16px; background:var(--green);
+    vertical-align:middle; animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero-name{
+    font-family:'JetBrains Mono',monospace; font-weight:800;
+    font-size:clamp(28px, 5vw, 44px);
+    margin-top:26px; color:var(--text);
+    letter-spacing:-0.5px;
+  }
+  .hero-role{ color:var(--green); font-family:'JetBrains Mono',monospace; font-size:15px; margin-top:8px; }
+  .hero-desc{ color:var(--text-dim); max-width:620px; margin-top:16px; font-size:15px; }
+  .hero-links{ margin-top:22px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    border:1px solid var(--green-dim); color:var(--green);
+    padding:9px 16px; border-radius:6px; display:inline-flex; align-items:center; gap:8px;
+    transition:background .15s, color .15s;
+  }
+  .btn:hover{ background:var(--green); color:#031007; text-decoration:none; }
+  .btn.alt{ border-color:var(--line); color:var(--text-dim); }
+  .btn.alt:hover{ background:var(--panel-2); color:var(--text); }
+
+  /* SECTION HEADERS */
+  section{ padding:64px 0; border-top:1px solid var(--line); }
+  .sec-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:34px; }
+  .sec-num{ font-family:'JetBrains Mono',monospace; color:var(--green-dim); font-size:13px; }
+  .sec-title{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:22px; color:var(--text); }
+  .sec-sub{ color:var(--text-dim); font-size:13px; font-family:'JetBrains Mono',monospace; margin-left:auto; }
+
+  /* SKILLS */
+  .skill-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px; }
+  .skill-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px 20px;
+  }
+  .skill-card h4{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--amber);
+    text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;
+  }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text);
+    background:var(--panel-2); border:1px solid var(--line); border-radius:5px;
+    padding:5px 9px;
+  }
+  .tag::before{ content:"--"; color:var(--green-dim); margin-right:3px; }
+
+  /* EXPERIENCE - log style */
+  .log{ position:relative; padding-left:26px; border-left:1px solid var(--line); }
+  .log-entry{ position:relative; padding-bottom:36px; }
+  .log-entry:last-child{ padding-bottom:0; }
+  .log-entry::before{
+    content:""; position:absolute; left:-31px; top:4px;
+    width:9px; height:9px; border-radius:50%; background:var(--green);
+    box-shadow:0 0 0 4px rgba(57,255,156,0.15);
+  }
+  .log-tag{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--green); }
+  .log-title{ font-weight:600; color:var(--text); margin-top:4px; font-size:16px; }
+  .log-meta{ color:var(--text-dim); font-size:13px; font-family:'JetBrains Mono',monospace; margin-top:2px; }
+  .log-list{ margin-top:12px; padding-left:18px; color:var(--text-dim); font-size:14px; }
+  .log-list li{ margin-bottom:6px; }
+  .log-list li::marker{ color:var(--green-dim); }
+
+  /* PROJECTS */
+  .proj-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:18px; }
+  .proj-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:20px;
+    transition:border-color .15s, transform .15s;
+  }
+  .proj-card:hover{ border-color:var(--green-dim); transform:translateY(-2px); }
+  .proj-card h4{ font-size:15px; color:var(--text); margin-bottom:8px; }
+  .proj-card p{ color:var(--text-dim); font-size:13.5px; }
+  .proj-icon{ font-family:'JetBrains Mono',monospace; color:var(--green); font-size:12px; margin-bottom:10px; display:block; }
+
+  /* CERTS */
+  .cert-list{ display:flex; flex-direction:column; gap:12px; }
+  .cert-row{
+    display:flex; align-items:center; gap:16px;
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:16px 18px;
+  }
+  .cert-check{
+    width:30px; height:30px; border-radius:50%; background:rgba(57,255,156,0.12);
+    border:1px solid var(--green-dim); color:var(--green); display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:14px; flex-shrink:0;
+  }
+  .cert-info{ flex:1; min-width:200px; }
+  .cert-info .name{ color:var(--text); font-size:14.5px; font-weight:600; }
+  .cert-info .issuer{ color:var(--text-dim); font-size:12.5px; font-family:'JetBrains Mono',monospace; margin-top:2px; }
+  .cert-link{
+    font-family:'JetBrains Mono',monospace; font-size:12px; border:1px solid var(--line);
+    padding:6px 12px; border-radius:5px; color:var(--text-dim); white-space:nowrap;
+  }
+  .cert-link.active{ color:var(--green); border-color:var(--green-dim); }
+  .cert-link.active:hover{ background:var(--green); color:#031007; text-decoration:none; }
+
+  /* CONTACT / FOOTER */
+  footer{ padding:60px 0 40px; border-top:1px solid var(--line); }
+  .contact-box{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:36px; text-align:center;
+  }
+  .contact-box h3{ font-family:'JetBrains Mono',monospace; font-size:20px; color:var(--text); margin-bottom:10px; }
+  .contact-box p{ color:var(--text-dim); font-size:14px; margin-bottom:22px; }
+  .contact-links{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .foot-note{ text-align:center; color:var(--text-dim); font-size:12px; font-family:'JetBrains Mono',monospace; margin-top:30px; }
+
+  @media (max-width:640px){
+    .navlinks{ display:none; }
+    .sec-sub{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">chirag<span>@</span>security<span>:</span>~$</div>
+    <div class="navlinks">
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#certifications">certs</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">chirag@security: ~</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+
+    <h1 class="hero-name">Chirag Kumar Ashvin Kumar Bhagora</h1>
+    <div class="hero-role">Cybersecurity Analyst — SOC Monitoring · Vulnerability Assessment · Incident Response</div>
+    <p class="hero-desc">Detail-oriented analyst with 2 years of hands-on experience across SIEM platforms, threat detection, and network traffic analysis. Google-certified, with enterprise simulation experience via Mastercard, Deloitte, and Tata Forage programs.</p>
+    <div class="hero-links">
+      <a class="btn" href="mailto:chiragbhagora677@gmail.com">✉ Email me</a>
+      <a class="btn alt" href="https://linkedin.com/in/chirag-bhagora-aa61a3288" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn alt" href="tel:+917016987845">📞 +91 7016987845</a>
+    </div>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Technical Skills</span>
+      <span class="sec-sub">cat /etc/skills.conf</span>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <h4>Security Operations</h4>
+        <div class="tags">
+          <span class="tag">SOC Monitoring</span><span class="tag">Incident Response</span>
+          <span class="tag">Threat Hunting</span><span class="tag">Threat Intelligence</span>
+          <span class="tag">Log Analysis</span><span class="tag">Malware Analysis</span>
+          <span class="tag">Endpoint Security</span><span class="tag">Phishing Detection</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>SIEM &amp; Tools</h4>
+        <div class="tags">
+          <span class="tag">Splunk ES</span><span class="tag">IBM QRadar</span>
+          <span class="tag">MS Sentinel</span><span class="tag">Wireshark</span>
+          <span class="tag">Nmap</span><span class="tag">Burp Suite</span>
+          <span class="tag">Metasploit</span><span class="tag">Nessus</span>
+          <span class="tag">Snort</span><span class="tag">OpenVAS</span><span class="tag">Kali Linux</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Domains</h4>
+        <div class="tags">
+          <span class="tag">VA/PT</span><span class="tag">Firewall Mgmt</span>
+          <span class="tag">IAM</span><span class="tag">Active Directory</span>
+          <span class="tag">Risk Assessment</span><span class="tag">Linux/Windows Admin</span>
+          <span class="tag">Cloud Security (AWS/Azure)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Compliance &amp; Programming</h4>
+        <div class="tags">
+          <span class="tag">ISO 27001</span><span class="tag">NIST</span>
+          <span class="tag">OWASP Top 10</span><span class="tag">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Experience</span>
+      <span class="sec-sub">tail -f /var/log/career.log</span>
+    </div>
+    <div class="log">
+      <div class="log-entry">
+        <div class="log-tag">[ACTIVE] SELF-DIRECTED</div>
+        <div class="log-title">Cybersecurity Home Lab</div>
+        <div class="log-meta">2022 — 2024</div>
+        <ul class="log-list">
+          <li>Built a virtual SOC using VirtualBox, Kali Linux, and Windows to replicate enterprise security infrastructure.</li>
+          <li>Conducted 10+ vulnerability assessments with Nessus and Nmap; identified open ports and misconfigured systems.</li>
+          <li>Deployed Splunk Enterprise Security to aggregate multi-source logs and generate actionable alerts.</li>
+          <li>Executed penetration testing with Burp Suite and Metasploit; delivered prioritized remediation reports.</li>
+          <li>Captured and analyzed packets with Wireshark, investigating suspicious DNS and lateral movement.</li>
+        </ul>
+      </div>
+      <div class="log-entry">
+        <div class="log-tag">[SIMULATION] FORAGE</div>
+        <div class="log-title">Tata Cybersecurity Analyst Job Simulation</div>
+        <div class="log-meta">June 2026</div>
+        <ul class="log-list">
+          <li>Worked on IAM concepts in a simulated enterprise security environment.</li>
+          <li>Assessed IAM strategies and platform integration approaches for secure access control.</li>
+        </ul>
+      </div>
+      <div class="log-entry">
+        <div class="log-tag">[SIMULATION] FORAGE</div>
+        <div class="log-title">Deloitte Cyber Job Simulation</div>
+        <div class="log-meta">June 2026</div>
+        <ul class="log-list">
+          <li>Completed practical cybersecurity tasks mapped to real Deloitte client scenarios.</li>
+          <li>Applied threat analysis and risk assessment to business-context challenges.</li>
+        </ul>
+      </div>
+      <div class="log-entry">
+        <div class="log-tag">[SIMULATION] FORAGE</div>
+        <div class="log-title">Mastercard Cybersecurity Job Simulation</div>
+        <div class="log-meta">June 2026</div>
+        <ul class="log-list">
+          <li>Designed a phishing email simulation testing organizational susceptibility to social engineering.</li>
+          <li>Created security awareness training materials to reduce phishing risk.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Projects</span>
+      <span class="sec-sub">ls -la ./projects</span>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <span class="proj-icon">[SOC]</span>
+        <h4>SOC Monitoring Lab</h4>
+        <p>Deployed Splunk + Kali Linux home SOC; flagged 15+ suspicious login attempts; generated automated alerts and incident reports.</p>
+      </div>
+      <div class="proj-card">
+        <span class="proj-icon">[VA/PT]</span>
+        <h4>Vulnerability Assessment</h4>
+        <p>Performed Nessus/Nmap scans across 5+ VMs; identified open ports, weak configs, and outdated services.</p>
+      </div>
+      <div class="proj-card">
+        <span class="proj-icon">[PHISH]</span>
+        <h4>Phishing Email Analysis</h4>
+        <p>Analyzed 20+ phishing emails; extracted suspicious URLs and spoofed headers; documented IOCs.</p>
+      </div>
+      <div class="proj-card">
+        <span class="proj-icon">[NET]</span>
+        <h4>Network Traffic Analysis</h4>
+        <p>Captured packets with Wireshark; identified anomalous traffic and unauthorized DNS queries.</p>
+      </div>
+      <div class="proj-card">
+        <span class="proj-icon">[FW]</span>
+        <h4>Firewall Configuration Lab</h4>
+        <p>Designed least-privilege firewall rule sets; blocked unauthorized traffic; validated via log monitoring.</p>
+      </div>
+      <div class="proj-card">
+        <span class="proj-icon">[SIM]</span>
+        <h4>Mastercard Phishing Simulation</h4>
+        <p>Designed phishing campaign; analyzed employee susceptibility; created awareness training materials.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Certifications</span>
+      <span class="sec-sub">verify --all</span>
+    </div>
+    <div class="cert-list">
+      <div class="cert-row">
+        <div class="cert-check">✓</div>
+        <div class="cert-info">
+          <div class="name">Google Cybersecurity Professional Certificate</div>
+          <div class="issuer">Google / Coursera</div>
+        </div>
+        <a class="cert-link active" href="https://coursera.org/share/91e58ca8a9ca3d38758874c4bde10c89" target="_blank" rel="noopener">View ↗</a>
+      </div>
+      <div class="cert-row">
+        <div class="cert-check">✓</div>
+        <div class="cert-info">
+          <div class="name">Additional Coursera Certificate</div>
+          <div class="issuer">Coursera</div>
+        </div>
+        <a class="cert-link active" href="https://coursera.org/share/1baddafee6641fb67b32275904646ea6" target="_blank" rel="noopener">View ↗</a>
+      </div>
+      <div class="cert-row">
+        <div class="cert-check">✓</div>
+        <div class="cert-info">
+          <div class="name">Mastercard Cybersecurity Job Simulation</div>
+          <div class="issuer">Forage · June 2026</div>
+        </div>
+        <span class="cert-link">Add link</span>
+      </div>
+      <div class="cert-row">
+        <div class="cert-check">✓</div>
+        <div class="cert-info">
+          <div class="name">Deloitte Cyber Job Simulation</div>
+          <div class="issuer">Forage · June 2026</div>
+        </div>
+        <span class="cert-link">Add link</span>
+      </div>
+      <div class="cert-row">
+        <div class="cert-check">✓</div>
+        <div class="cert-info">
+          <div class="name">Tata Cybersecurity Analyst Job Simulation</div>
+          <div class="issuer">Forage · June 2026</div>
+        </div>
+        <span class="cert-link">Add link</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <h3>&gt; whoami --contact</h3>
+      <p>Open to SOC analyst and cybersecurity roles — reach out any time.</p>
+      <div class="contact-links">
+        <a class="btn" href="mailto:chiragbhagora677@gmail.com">✉ chiragbhagora677@gmail.com</a>
+        <a class="btn alt" href="tel:+917016987845">📞 +91 7016987845</a>
+        <a class="btn alt" href="https://linkedin.com/in/chirag-bhagora-aa61a3288" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="foot-note">© 2026 Chirag Kumar Ashvin Kumar Bhagora — built with HTML/CSS/JS, hosted on GitHub Pages</div>
+  </div>
+</footer>
+
+<script>
+  const lines = [
+    { p: "chirag@security:~$ ", t: "whoami", d: 0 },
+    { p: "", t: "chirag_bhagora — cybersecurity_analyst", d: 550, cls:"mono" },
+    { p: "chirag@security:~$ ", t: "cat role.txt", d: 1200 },
+    { p: "", t: "SOC Monitoring | Vulnerability Assessment | Incident Response", d: 1900 },
+    { p: "chirag@security:~$ ", t: "status --certs", d: 2600 },
+    { p: "", t: "[OK] Google Cybersecurity Professional Certificate — verified", d: 3300 },
+  ];
+
+  const body = document.getElementById('termBody');
+  let html = "";
+  function typeLine(i){
+    if(i >= lines.length){
+      body.innerHTML = html + '<span class="cursor"></span>';
+      return;
+    }
+    const line = lines[i];
+    setTimeout(()=>{
+      const promptSpan = line.p ? `<span class="prompt">${line.p}</span>` : "";
+      html += `<div class="line">${promptSpan}${line.t}</div>`;
+      body.innerHTML = html + '<span class="cursor"></span>';
+      typeLine(i+1);
+    }, i === 0 ? 0 : 550);
+  }
+  typeLine(0);
+</script>
+
+</body>
+</html>
